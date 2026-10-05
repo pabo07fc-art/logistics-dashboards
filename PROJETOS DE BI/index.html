@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Controle WMS</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- MENU LATERAL (SIDEBAR) -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>WMS ANALYTICS</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="nav-item active" data-target="dashboard-pendentes">
+                        <span class="icon">📦</span>
+                        <span>Pedidos Pendentes</span>
+                    </li>
+                    <li class="nav-item" data-target="dashboard-finalizados">
+                        <span class="icon">✅</span>
+                        <span>Pedidos Finalizados</span>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- ÁREA PRINCIPAL DE CONTEÚDO -->
+        <main class="main-content">
+
+            <!-- DASHBOARD 1: PEDIDOS PENDENTES -->
+            <section id="dashboard-pendentes" class="dashboard-view active-view">
+                <header class="content-header">
+                    <h1>Pedidos Pendentes</h1>
+                    <div class="file-uploader">
+                        <label for="excelFile" class="btn-upload">Carregar Excel</label>
+                        <input type="file" id="excelFile" accept=".xlsx, .xls, .xlsm" />
+                    </div>
+                </header>
+
+                <!-- KPI / Cartões de Resumo -->
+                <section class="kpi-container">
+                    <div class="card card-warning">
+                        <h3>Pedidos em Aberto</h3>
+                        <span id="kpi-abertos" class="card-value">0</span>
+                    </div>
+                    <div class="card card-success">
+                        <h3>Dentro do SLA</h3>
+                        <div class="card-content">
+                            <span id="kpi-dentro-sla" class="card-value">0</span>
+                            <small id="kpi-dentro-pct" class="card-percent">(0%)</small>
+                        </div>
+                    </div>
+                    <div class="card card-danger">
+                        <h3>Fora do SLA</h3>
+                        <div class="card-content">
+                            <span id="kpi-fora-sla" class="card-value">0</span>
+                            <small id="kpi-fora-pct" class="card-percent">(0%)</small>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="status-summary-container" class="status-summary-container">
+                    <!-- Mini-cartões de status serão injetados dinamicamente via JS -->
+                </section>
+
+                <!-- Tabela e Filtros -->
+                <section class="table-container">
+                    <div class="table-header">
+                        <h2>Detalhamento dos Pedidos Pendentes</h2>
+                        <div class="search-container">
+                            <input type="text" id="searchInput" placeholder="Pesquisar por Pedido, Franquia ou Status..." disabled>
+                        </div>
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table id="pedidosTable">
+                            <thead>
+                                <tr>
+                                    <th>DATA</th>
+                                    <th>PEDIDO</th>
+                                    <th>FRANQUIA</th>
+                                    <th>STATUS DO PEDIDO</th>
+                                    <th>LIMITE SLA</th>
+                                    <th>STATUS SLA</th>
+                                    <th>AGEING</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody">
+                                <tr>
+                                    <td colspan="6" class="empty-msg">Aguardando carregamento do arquivo...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </section>
+
+            <!-- DASHBOARD 2: PEDIDOS FINALIZADOS (TEMPLATE PARA PRÓXIMA ETAPA) -->
+            <section id="dashboard-finalizados" class="dashboard-view">
+                <header class="content-header">
+                    <h1>Pedidos Finalizados</h1>
+                </header>
+                <div class="placeholder-content">
+                    <h2>Módulo de Pedidos Finalizados em desenvolvimento</h2>
+                    <p>Em breve aqui constará o histórico de expedição e performance de entrega.</p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
